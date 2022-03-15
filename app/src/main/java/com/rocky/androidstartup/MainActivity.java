@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.rocky.androidstartup.startup.StartupSortStore;
+import com.rocky.androidstartup.startup.manager.StartupManager;
 import com.rocky.androidstartup.startup.sort.TopologySort;
 import com.rocky.androidstartup.task.Startup;
 import com.rocky.androidstartup.user_task.Task1;
@@ -23,12 +24,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                testStep1();
-            }
-        }).start();
+
+        //testStep1();
+        testStep2();
+
+    }
+
+    private void testStep2() {
+        List list = new ArrayList<Startup>();
+
+        list.add(new Task5());
+        list.add(new Task4());
+        list.add(new Task3());
+        list.add(new Task2());
+        list.add(new Task1());
+        new StartupManager.Builder()
+                .addAllStartup(list)
+                .build(this)
+                .start();
 
     }
 
