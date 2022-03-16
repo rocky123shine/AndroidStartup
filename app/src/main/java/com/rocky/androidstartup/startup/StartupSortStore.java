@@ -18,7 +18,7 @@ public class StartupSortStore {
     List<Startup<?>> result;
     //原始任务
     Map<Class<? extends Startup>, Startup<?>> startupMap;
-    //当前任务的子任务  即 当前任务所依赖的任务
+    //任务的子任务  即 当前任务之后 第一执行任务列表
     Map<Class<? extends Startup>, List<Class<? extends Startup>>> startupChildrenMap;
 
 

@@ -68,12 +68,20 @@ public class TopologySort {
 
         //2. 删除图中入度为0的这些顶点,并更新全图，，最后完成排序
         List<Startup<?>> result = new ArrayList<>();
+        //区分是否是在子线成还是在主线程的任务
+        List<Startup<?>> main = new ArrayList<>();
+        List<Startup<?>> threads = new ArrayList<>();
         //执行所有入度为0的任务
         while (!zeroDeque.isEmpty()) {
             Class<? extends Startup> aClass = zeroDeque.poll();
             Startup<?> startup = startupMap.get(aClass);
             //加入到排序结果中
-            result.add(startup);
+            //result.add(startup);
+            if (startup.callCreateOnMainThread()) {
+                main.add(startup);
+            } else {
+                threads.add(startup);
+            }
             //删除该0入度的任务
             if (startupChildrenMap.containsKey(aClass)) {
                 //拿到当前任务的第一后续任务列表
@@ -90,7 +98,9 @@ public class TopologySort {
                 }
             }
         }
-
+        //把子线程放在前面
+        result.addAll(threads);
+        result.addAll(main);
         return new StartupSortStore(result, startupMap, startupChildrenMap);
     }
 }
