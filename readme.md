@@ -105,4 +105,26 @@
     这样就会造成资源的浪费 
     解决思路：利用cpu的多核和并发 优先执行线程的任务 这样就避免主线程卡住 子线程得不到执行
     所以 修改排序代码
+
+## 升级3
+
+    本次升级是想把内部任务执行逻辑完全隐藏 只提供一个入口
     
+    许多任务的初始化 是在Application中的 这样明显会减慢app的启动
+
+    但是初始化 有只需要一次 并且想初始化完全由框架实现
+
+    思路  使用ContentProvider 前提初始化
+
+- 自定义StartupProvider
+
+  重写onCreate方法----》该方法只会执行一次
+
+- 自定义 StartupInitializer
+
+  获取初始化任务的信息工具类
+
+  在清单文件注册的时候 在provider 节点下声明多个provider 每一个provider一个唯一的key
+
+  一个key对应一个有向无环图的任务链
+  ![](imgs/img_provider.png)

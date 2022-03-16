@@ -27,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
         //testStep1();
         // testStep2();
-        testStep3();
+        // testStep3();
+        //第四部 在清单文件中注册的
 
     }
 
