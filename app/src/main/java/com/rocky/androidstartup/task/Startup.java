@@ -11,7 +11,7 @@ import java.util.List;
  *     des    : 这个是所有任务的顶层接口 规范了任务
  * </pre>
  */
-public interface Startup<T> {
+public interface Startup<T> extends Dispatcher {
     //使用者创建一个任务
     T create(Context context);
 
