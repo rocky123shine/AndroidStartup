@@ -127,4 +127,5 @@
   在清单文件注册的时候 在provider 节点下声明多个provider 每一个provider一个唯一的key
 
   一个key对应一个有向无环图的任务链
+  
   ![](imgs/img_provider.png)
